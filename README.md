@@ -2,10 +2,10 @@
 
 # Current Status:
 > ⚠️ WIP: I am still updating these.
-## i3wm: `finished, may need updates later`
-## polybar: `old configs, needs updating`
-## dunst: `old configs, needs updating`
-## flameshot: `needs basic config`
-## rofi: `old configs, needs updating`
-## fish: `small changes`
+## i3wm: `wip, may need update later`
+## polybar: `wip, will update later`
+## dunst: `finished`
+## flameshot: `finished`
+## rofi: `finished, may need update later`
+## fish: `finished`
 ## betterdiscord: `needs updating and plugin clean, theme choice`
