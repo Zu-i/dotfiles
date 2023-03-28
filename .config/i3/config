@@ -1,0 +1,182 @@
+#### Basic Setup
+
+    # Set modified key (for later use) to the windows / meta key
+    set $mod Mod4
+    # Hide container borders adjacent to the screen edges 
+    hide_edge_borders smart
+    # Lets you go back and fourth between workspaces
+    workspace_auto_back_and_forth yes
+    # For i3-gaps
+    gaps inner 6
+    gaps outer 3
+    # Floating modifier for windows
+    floating_modifier $mod
+    # Hide window border
+    default_border none
+
+#### Startup Programs
+
+    # Picom = Window Transparency
+    exec --no-startup-id picom -b
+    # Nitrogen = Wallpaper loading
+    exec --no-startup-id nitrogen --restore
+    # gnome-keyring = Keyring service
+    exec --no-startup-id gnome-keyring-daemon --start
+    # nm-applet = Connection Applet
+    exec --no-startup-id nm-applet
+    # Greenclip = Clipboard
+    exec --no-startup-id greenclip daemon
+    # xset = Screen timeout
+    exec --no-startup-id xset dpms 120 0 0
+    # dunst = Notifications
+    exec --no-startup-id dunst
+    # polybar = Bar on bottom of screen
+    exec --no-startup-id ~/.config/polybar/launch.sh
+    # xss-lock = For locking the computer once xset pushes sleep
+    exec --no-startup-id xss-lock --transfer-sleep-lock -- ~/.config/i3/scripts/lock.sh --nofork
+    # discord = Because I don't have any friends on telegram
+    exec --no-startup-id discord
+
+#### Audio Controls
+
+    # Volume Controls, vol
+    bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+    # Volume Controls with mod for faster changing, mod + vol
+    bindsym $mod+XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+    bindsym $mod+XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+
+    # Toggle sound and mic mute, mute and micmute
+    bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+    # Volume Controls from direct buttons
+    bindsym XF86AudioPlay exec playerctl play
+    bindsym XF86AudioPause exec playerctl pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
+
+#### Basic Keybinds
+
+    # Open flameshot selection, prt scr
+    bindsym Print exec flameshot gui
+
+    # Open terminal, mod + enter
+    bindsym $mod+Return exec xfce4-terminal
+
+    # Kill active window, mod + q
+    bindsym $mod+q kill
+
+    # Open application opener, mod + space
+    bindsym $mod+space exec rofi -modi drun -show drun -config ~/.config/rofi/config.rasi     
+    # Open window view (like alt-tab on windows), mod + w
+    bindsym $mod+w exec rofi -show window -config ~/.config/rofi/config.rasi
+    # Open clipboard, mod + v
+    bindsym $mod+v exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command "{cmd}"
+
+    # Reload polybar, mod + shift + p
+    bindsym $mod+Shift+p exec ~/.config/polybar/launch.sh
+    # Invert display, mod + shift + i
+    bindsym $mod+Shift+i exec xcalib -invert -alter
+    # Grab random wallpaper, set it, change colours and reload polybar (when the polybar is setup to use wal), mod + shift + n
+    bindsym $mod+Shift+n exec wal -i ~/Pictures/wallpapers && ./.config/polybar/launch.sh
+    # Force lock, mod + l
+    bindsym $mod+l exec ~/.config/i3/scripts/lock.sh
+
+#### Windows & Focus
+
+    # Set workspace ids
+    set $ws1 "1"
+    set $ws2 "2"
+    set $ws3 "3"
+    set $ws4 "4"
+    set $ws5 "5"
+    set $ws6 "6"
+    set $ws7 "7"
+    set $ws8 "8"
+    set $ws9 "9"
+    set $ws10 "0"
+
+    # Move windows to certain workspaces when launched
+    assign [class="(?i)discord(?i)"] $ws1
+    assign [class="firefoxdeveloperedition"] $ws2
+    assign [class="(?i)code"] $ws3
+    # 4 - 7
+    assign [class="(?i)qbittorrent(?i)"] $ws8
+    assign [class="(?i)spotify(?i)"] $ws9
+
+    # Custom rules for floating windows
+    for_window [class="mpv" instance="gl"] floating enable, resize set 300 300, move position center, sticky enable
+    for_window [class="Steam" title="Friends List"] floating enable, resize set 662 686
+
+#### Functions
+
+# Default resize function
+    mode "resize" {
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+    }
+
+#### Keybinds
+
+    # Reload or restart i3, main usage is mod + shift + r
+    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r restart
+
+    # Move to workspace, mod + N
+    bindsym $mod+1    workspace  $ws1
+    bindsym $mod+2    workspace  $ws2
+    bindsym $mod+3    workspace  $ws3
+    bindsym $mod+4    workspace  $ws4
+    bindsym $mod+5    workspace  $ws5
+    bindsym $mod+6    workspace  $ws6
+    bindsym $mod+7    workspace  $ws7
+    bindsym $mod+8    workspace  $ws8
+    bindsym $mod+9    workspace  $ws9
+    bindsym $mod+0    workspace  $ws10
+
+    # Move window to workspace, mod + shift + N
+    bindsym $mod+Shift+1    move container to workspace  $ws1
+    bindsym $mod+Shift+2    move container to workspace  $ws2
+    bindsym $mod+Shift+3    move container to workspace  $ws3
+    bindsym $mod+Shift+4    move container to workspace  $ws4
+    bindsym $mod+Shift+5    move container to workspace  $ws5
+    bindsym $mod+Shift+6    move container to workspace  $ws6
+    bindsym $mod+Shift+7    move container to workspace  $ws7
+    bindsym $mod+Shift+8    move container to workspace  $ws8
+    bindsym $mod+Shift+9    move container to workspace  $ws9
+    bindsym $mod+Shift+0    move container to workspace  $ws10
+
+    # Change focus, mod + arrow
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move windows, mod + arrow
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+    # Fullscreen, mod + f
+    bindsym $mod+f fullscreen toggle
+    # Set window to float, mod + shift + space
+    bindsym $mod+Shift+space floating toggle
+    # Set sticky, mod + shift + s
+    bindsym $mod+Shift+s sticky toggle
+    # Focus parent, mod + a
+    bindsym $mod+a focus parent
+    # Run resize function on active window, mod + r
+    bindsym $mod+r mode "resize"
