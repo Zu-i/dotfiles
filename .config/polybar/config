@@ -1,0 +1,86 @@
+# [global/wm]
+# include-file = ~/.config/polybar/modules/colors.ini
+
+[settings]
+screenchange-reload = true
+
+#### Bars
+
+[bar/main]
+    # Position
+    bottom = true
+    fixed-center = true
+    height = 2.6%
+    override-redirect = false
+
+    # Display
+    background = #00000000
+    font-0 = TerminessTTF Nerd Font:size=12;3
+    spacing = 0
+
+    # Modules
+    enable-ipc = true
+    modules-left = time battery alsa
+    modules-center = i3
+    modules-right = div
+    # Tray
+    tray-position = right
+    tray-padding = 1
+
+#### Modules
+
+[module/div]
+    type = custom/text
+    content = ""
+    content-padding = 0.1
+    content-foreground = #00000000
+
+[module/alsa]
+    type = internal/pulseaudio
+    format-volume = <ramp-volume> <label-volume>
+    label-muted = - muted -
+    ramp-volume-0 = 󰖀
+    ramp-volume-1 = 󱄡
+    ramp-volume-2 = 󰕾
+
+[module/time]
+    type = internal/date
+    interval = 1
+    date-alt = " %A, %b %e, %I:%M:%S %p"
+    time = "%I:%M:%S %p "
+    label = %date% %time%
+
+[module/i3]
+    type = internal/xworkspaces
+    pin-workspaces = true
+    icon-default = 
+
+    format = <label-state>
+    format-padding = 1
+
+    label-active = %icon%
+    label-occupied = %icon%
+    label-urgent = %icon%
+
+    label-active-foreground = #FFFFFF
+    label-occupied-foreground = #777777
+    label-urgent-foreground = #FF9999
+
+    label-active-padding = 1
+    label-occupied-padding = 1
+    label-urgent-padding = 1
+
+[module/battery]
+    type = internal/battery
+    battery = BAT0
+    poll-interval = 10
+    adapter = AC
+    full-at = 95
+
+    label-full = %{F#99FF99}󰁹%{F-}
+    label-charging = %{F#FFFF99} %percentage%%%{F-}
+    label-discharging = %{F#FF9999} %percentage%%%{F-}
+
+    label-full-padding = 1
+    label-charging-padding = 1
+    label-discharging-padding = 1
