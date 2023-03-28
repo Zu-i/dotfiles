@@ -1,0 +1,47 @@
+[frame]
+    width = 0
+    color = "#00000000"
+
+[urgency_low]
+    background = "#111111"
+    foreground = "#999999"
+    frame_color = "#222222"
+    timeout = 10
+
+[urgency_normal]
+    background = "#111111"
+    foreground = "#CCCCCC"
+    frame_color = "#222222"
+    timeout = 0
+
+[urgency_critical]
+    background = "#111111"
+    foreground = "#FF3333"
+    frame_color = "#FF3333"
+    timeout = 0
+
+[global]
+    format = "<b>%a</b>\n%s\n%b\n%p"
+    width = (5, 600)
+    height = (5, 200)
+    origin = top-right
+    offset = 10x10
+    font = monospace 10
+    markup = full
+    indicate_hidden = true
+    alignment = center
+    transparency = 10
+    follow = mouse
+    show_indicators = false
+    icon_position = left
+    idle_threshold = 120
+    browser = /usr/bin/firefox-developer-edition -new-tab
+
+    mouse_left = do_action
+    middle = close_all
+    right_click = close_current
+
+[shortcuts]
+    close = ctrl+space
+    close_all = ctrl+shift+space
+    history = mod1+grave
