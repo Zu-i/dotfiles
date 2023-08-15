@@ -1,8 +1,4 @@
 {
-  "showLabsSettings": true,
-  "settingDefaults": {
-    "custom_themes": [
-      {
         "name": "Wal",
         "is_dark": true,
         "colors": {
@@ -45,8 +41,5 @@
           "togglesw-off-color": "#503246",
           "secondary-content": "",
           "tertiary-content": ""
-        }
-      }
-    ]
-  }
+          }
 }
